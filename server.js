@@ -25,6 +25,16 @@ app.post('/utilizadores', async (req, res) => {
   }
 });
 
+app.get('/utilizadores', async (req, res) => {
+  try {
+    const users = await prisma.user.findMany();
+    res.json(users);
+  } catch (error) {
+    console.error('Erro ao obter os utilizadores:', error.message);
+    res.status(500).send('Erro ao obter os utilizadores');
+  }
+})
+
 app.listen(3000, () => {
   console.log('Servidor rodando na porta 3000');
 });
